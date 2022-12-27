@@ -9,6 +9,8 @@ const Formulario = () => {
   const [checkweb, setCheckweb] = useState(false)
   const [checkseo, setCheckseo] = useState(false)
   const [checkads, setCheckads] = useState(false)
+  const [pagesNumber, setPagesNumber] = useState()
+  const [pagesLanguaje, setPagesLanguaje] = useState()
 
   function handleCheckweb(myChecked) {
     if (myChecked.name == "web") {
@@ -31,6 +33,14 @@ const Formulario = () => {
     }
   }
 
+  function handlePages(pagesInformation) {
+    if (pagesInformation.name == "pagesNumber") {
+      setPagesNumber(pagesInformation.value)
+    } if (pagesInformation.name == "pagesLanguaje") {
+      setPagesLanguaje(pagesInformation.value)
+    }
+    total += Number(setPagesNumber * setPagesLanguaje * 30)
+  }
 
 
   return (
@@ -42,10 +52,13 @@ const Formulario = () => {
           Una página web (500€)
         </label>
       </div>
-      <div className="container mt-3 p-3 form-control border-dark"  width="100px">
-        Numero de páginas <input type="text"/> 
-        <br ></br>
-        Numero de idiomas <input type="text"/>
+      <div className="col-10">
+        <div className="container mt-3 p-4 px-4 form-control border-dark border-3">
+          Número de páginas <input type="number" className="h6 my-2" name="pagesNumber" value={30} onChange={(e) => handlePages(e.target)} />
+          <br></br>
+
+          Número de idiomas <input type="number" className="h6 mt-2" name="pagesLanguaje" value={30} onChange={(e) => handlePages(e.target)} />
+        </div>
       </div>
       <div className="form-check mt-3">
         <input className="form-check-input" type="checkbox" id="seo" checked={checkseo} value={300} name="seo" onChange={(e) => handleCheckseo(e.target)} />
