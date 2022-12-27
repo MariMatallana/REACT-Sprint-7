@@ -11,7 +11,6 @@ function App() {
       <Formulario />
     </div>
 
-
   );
 }
 
