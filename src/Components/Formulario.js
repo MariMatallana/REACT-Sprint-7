@@ -57,7 +57,7 @@ const Formulario = () => {
     checkweb ? (precioWeb = 500 + (pagesNumber * pagesLanguaje * 30)) : precioWeb = 0
     checkseo ? precioSeo = 300 : precioSeo = 0
     checkads ? precioAds = 200 : precioAds = 0
-    console.log(totalWeb)
+    // console.log(totalWeb)
     return precioWeb + precioSeo + precioAds
   }
 
@@ -71,9 +71,7 @@ const Formulario = () => {
         </label>
       </div>
       <div>
-        { checkweb ? <Web languaje={pagesLanguaje} number={pagesNumber}> handlePages={handlePages} handleLanguajes={handleLanguajes}</Web> : null
-          
-        } 
+        { checkweb ? <Web pagesLanguaje={pagesLanguaje} pagesNumber={pagesNumber} setPagesNumber={setPagesNumber} setPagesLanguaje={setPagesLanguaje}> handlePages={handlePages} handleLanguajes={handleLanguajes}</Web> : null } 
       </div>
       <div className="form-check mt-3">
         <input className="form-check-input" type="checkbox" id="seo" checked={checkseo} value={300} name="seo" onChange={(e) => handleCheckseo(e.target)} />
