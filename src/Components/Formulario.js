@@ -1,8 +1,8 @@
 import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 import React, { Fragment, useRef } from "react";
 import { useState, useEffect } from "react";
+import  Web  from './Web'
 
-// let total = 0
 let totalWeb = 0
 
 const Formulario = () => {
@@ -13,11 +13,11 @@ const Formulario = () => {
   const [pagesNumber, setPagesNumber] = useState(1)
   const [pagesLanguaje, setPagesLanguaje] = useState(1)
   const [total, setTotal] = useState(0)
-  
+
   useEffect(() => {
     setTotal(calcular())
   }, [checkweb, checkseo, checkads, pagesNumber, pagesLanguaje])
-  
+
   function handleCheckweb(control) {
     if (control.checked) {
       setCheckweb(true)
@@ -43,13 +43,13 @@ const Formulario = () => {
   }
 
   function handlePages(pagesInformation) {
-    pagesInformation <1 ? pagesInformation = 1 : 
-    setPagesNumber(parseInt(pagesInformation))
+    pagesInformation < 1 ? pagesInformation = 1 :
+      setPagesNumber(parseInt(pagesInformation))
   }
 
   function handleLanguajes(LanguajeInformation) {
-    LanguajeInformation <1 ? LanguajeInformation = 1 : 
-    setPagesLanguaje(parseInt(LanguajeInformation))
+    LanguajeInformation < 1 ? LanguajeInformation = 1 :
+      setPagesLanguaje(parseInt(LanguajeInformation))
   }
 
   function calcular() {
@@ -60,7 +60,6 @@ const Formulario = () => {
     console.log(totalWeb)
     return precioWeb + precioSeo + precioAds
   }
-  
 
   return (
     <Fragment>
@@ -71,13 +70,10 @@ const Formulario = () => {
           Una página web (500€)
         </label>
       </div>
-      <div className="col-10">
-        <div className="container mt-3 p-4 px-4 form-control border-dark border-3">
-          Número de páginas <input type="number" className="h6 my-2" name="pagesNumber" value={pagesNumber} onChange={(e) => handlePages(e.target.value)} />
-          <br></br>
-
-          Número de idiomas <input type="number" className="h6 mt-2" name="pagesLanguaje" value={pagesLanguaje} onChange={(e) => handleLanguajes(e.target.value)} />
-        </div>
+      <div>
+        { checkweb ? <Web languaje={pagesLanguaje} number={pagesNumber}> handlePages={handlePages} handleLanguajes={handleLanguajes}</Web> : null
+          
+        } 
       </div>
       <div className="form-check mt-3">
         <input className="form-check-input" type="checkbox" id="seo" checked={checkseo} value={300} name="seo" onChange={(e) => handleCheckseo(e.target)} />
