@@ -26,6 +26,10 @@ const Formulario = () => {
     }
   }
 
+  useEffect (() => {
+    console.log("cambio")
+  }, [checkweb,checkseo,checkads,pagesNumber,pagesLanguaje])
+
   function handleCheckseo(control) {
     if (control.checked) {
       setCheckseo(true)
@@ -71,7 +75,7 @@ const Formulario = () => {
         </label>
       </div>
       <div>
-        { checkweb ? <Web pagesLanguaje={pagesLanguaje} pagesNumber={pagesNumber} setPagesNumber={setPagesNumber} setPagesLanguaje={setPagesLanguaje}> handlePages={handlePages} handleLanguajes={handleLanguajes}</Web> : null } 
+        { checkweb ? <Web pagesLanguaje={pagesLanguaje} pagesNumber={pagesNumber} setPagesNumber={setPagesNumber} setPagesLanguaje={setPagesLanguaje}> </Web> : null } 
       </div>
       <div className="form-check mt-3">
         <input className="form-check-input" type="checkbox" id="seo" checked={checkseo} value={300} name="seo" onChange={(e) => handleCheckseo(e.target)} />
@@ -86,7 +90,7 @@ const Formulario = () => {
         </label>
       </div>
       <div className="mt-3">
-        Precio: ${total} €
+        Precio: {total} €
       </div>
     </Fragment>
   );
