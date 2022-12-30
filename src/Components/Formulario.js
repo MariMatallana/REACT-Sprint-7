@@ -13,10 +13,12 @@ const Formulario = () => {
   const [pagesNumber, setPagesNumber] = useState(1)
   const [pagesLanguaje, setPagesLanguaje] = useState(1)
   const [total, setTotal] = useState(0)
+  
 
   useEffect(() => {
     setTotal(calcular())
   }, [checkweb, checkseo, checkads, pagesNumber, pagesLanguaje])
+
 
   function handleCheckweb(control) {
     if (control.checked) {
@@ -25,10 +27,6 @@ const Formulario = () => {
       setCheckweb(false)
     }
   }
-
-  useEffect (() => {
-    console.log("cambio")
-  }, [checkweb,checkseo,checkads,pagesNumber,pagesLanguaje])
 
   function handleCheckseo(control) {
     if (control.checked) {
@@ -46,16 +44,6 @@ const Formulario = () => {
     }
   }
 
-  function handlePages(pagesInformation) {
-    pagesInformation < 1 ? pagesInformation = 1 :
-      setPagesNumber(parseInt(pagesInformation))
-  }
-
-  function handleLanguajes(LanguajeInformation) {
-    LanguajeInformation < 1 ? LanguajeInformation = 1 :
-      setPagesLanguaje(parseInt(LanguajeInformation))
-  }
-
   function calcular() {
     let precioWeb, precioSeo, precioAds = 0
     checkweb ? (precioWeb = 500 + (pagesNumber * pagesLanguaje * 30)) : precioWeb = 0
@@ -63,6 +51,32 @@ const Formulario = () => {
     checkads ? precioAds = 200 : precioAds = 0
     // console.log(totalWeb)
     return precioWeb + precioSeo + precioAds
+  }
+
+  function save() {
+
+    let allInformation = JSON.parse(localStorage.getItem('allInformation') || '[]')
+    let information = {
+      Web: checkweb,
+      Seo: checkseo,
+      Ads: checkads,
+      PagesNumber: pagesNumber,
+      PagesLanguaje: pagesLanguaje,
+    }
+    allInformation.push(information)
+
+    localStorage.setItem('allInformation', JSON.stringify(allInformation))
+    reset()
+  }
+
+  function reset() {
+
+    setCheckweb(false)
+    setCheckseo(false)
+    setCheckads(false)
+    setPagesNumber(1)
+    setPagesLanguaje(1)
+
   }
 
   return (
@@ -92,6 +106,7 @@ const Formulario = () => {
       <div className="mt-3">
         Precio: {total} €
       </div>
+      <button className="mt-3 btn btn-warning btn-sm" onClick={save}> Guardar </button>
     </Fragment>
   );
 }
