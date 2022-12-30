@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import  Web  from './Web'
 
 let totalWeb = 0
+let data 
 
 const Formulario = () => {
 
@@ -14,6 +15,19 @@ const Formulario = () => {
   const [pagesLanguaje, setPagesLanguaje] = useState(1)
   const [total, setTotal] = useState(0)
   
+
+  useEffect(() => {
+  data = JSON.parse(localStorage.getItem('allInformation')) 
+    data ? printData(data) : console.log("")
+  }, [])
+
+  function printData() {
+    setCheckweb(data[0].Web)
+     setCheckseo(data[0].Seo)
+    setCheckads(data[0].Ads)
+    setPagesNumber(data[0].PagesNumber)
+    setPagesLanguaje(data[0].PagesLanguaje)
+  }
 
   useEffect(() => {
     setTotal(calcular())
@@ -49,7 +63,6 @@ const Formulario = () => {
     checkweb ? (precioWeb = 500 + (pagesNumber * pagesLanguaje * 30)) : precioWeb = 0
     checkseo ? precioSeo = 300 : precioSeo = 0
     checkads ? precioAds = 200 : precioAds = 0
-    // console.log(totalWeb)
     return precioWeb + precioSeo + precioAds
   }
 
