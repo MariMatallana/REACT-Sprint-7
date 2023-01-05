@@ -94,6 +94,12 @@ const Formulario = () => {
   return (
     <Fragment>
       <h4>¿Qué quieres hacer?</h4>
+      
+        <p className='mt-3'/>Nombre del presupuesto: 
+        <input className='ms-2'type='text' id="nombrePresupuesto"></input>
+        <p className='mt-3'/>Cliente: 
+        <input className='ms-2'type='text' id="nombreCliente"></input>
+      
       <div className="form-check mt-3">
         <input className="form-check-input" type="checkbox" id="web" checked={checkweb} name="web" value={500} onChange={(e) => handleCheckweb(e.target)} />
         <label className="form-check-label">

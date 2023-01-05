@@ -17,7 +17,7 @@ function App() {
         <h3>Calcula tu presupesto</h3>
         <div className="btn-group mt-5"></div>
         <Link to="/" className="btn btn-warning btn-sm" activeClassName="active">Inicio</Link>
-        <Link to="/presupuesto" className="btn btn-warning btn-sm ms-2">Empezar</Link>
+        <Link to="/presupuesto" className="btn btn-warning btn-sm ms-2">Presupuesto</Link>
         <hr />
         <Routes>
           <Route path='/presupuesto' element={<Formulario/>}>
