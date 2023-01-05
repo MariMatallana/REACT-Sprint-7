@@ -1,9 +1,8 @@
-import { calculateNewValue } from "@testing-library/user-event/dist/utils";
-import React, { Fragment, useRef } from "react";
+import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import  Web  from './Web'
+import { Popup } from './Popup'
 
-let totalWeb = 0
 let data 
 
 const Formulario = () => {

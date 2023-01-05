@@ -1,6 +1,4 @@
-import React, { Component } from "react";
-import { useState, useEffect } from "react";
-
+import { Popup } from "./Popup"
 
 const Web = ({ pagesLanguaje, pagesNumber, setPagesNumber, setPagesLanguaje}) => {
 
@@ -29,18 +27,14 @@ const Web = ({ pagesLanguaje, pagesNumber, setPagesNumber, setPagesLanguaje}) =>
                 <button className="btn btn-warning btn-sm fw-bold m-2 " onClick={incrementPages}> + </button>
                 <span className="me-2"> {pagesNumber} </span>
                 <button className="btn btn-warning btn-sm fw-bold ms-3" onClick={decrementPages}>-</button>
-                {/* <input 
-                    type="number" className="h6 my-2" name="pagesNumber" 
-                    value={pagesNumber} onChange={(e) => handlePages(e.target.value)} />  */}
-
+                <Popup num={pagesNumber} text={'paginas'}/>
                 <br></br>
 
                 Número de idiomas
                 <button className="btn btn-warning btn-sm fw-bold m-2" onClick={incrementLanguajes}>+</button>
                 <span className="me-2"> {pagesLanguaje} </span >
                 <button className="btn btn-warning btn-sm fw-bold ms-3" onClick={decrementLanguajes}>-</button>
-                {/* <input type="number" className="h6 mt-2" name="pagesLanguaje" 
-                value={pagesLanguaje} onChange={(e) => handleLanguajes(e.target.value)} /> */}
+                <Popup num={pagesLanguaje} text={'idiomas'}/>
             </div>
         </div>)
 
