@@ -2,9 +2,8 @@ import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Web from './Web'
-import { Popup } from './Popup'
 
-let data
+let data 
 
 const Formulario = () => {
 
@@ -16,24 +15,24 @@ const Formulario = () => {
   const [pagesNumber, setPagesNumber] = useState(1)
   const [pagesLanguaje, setPagesLanguaje] = useState(1)
   const [total, setTotal] = useState(0)
-
-  useEffect(() => {
-    data = JSON.parse(localStorage.getItem('allInformation'))
-    data ? printData(data) : console.log("")
-  }, [])
+  const [budget, setBudget] = useState(JSON.parse(localStorage.getItem('Information')) ?? [])
 
   function printData() {
-    setCheckweb(data[0].Web)
-    setCheckseo(data[0].Seo)
-    setCheckads(data[0].Ads)
-    setPagesNumber(data[0].PagesNumber)
-    setPagesLanguaje(data[0].PagesLanguaje)
-  }
+    setCheckweb(budget[0].Web)
+    setCheckseo(budget[0].Seo)
+    setCheckads(budget[0].Ads)
+    setPagesNumber(budget[0].PagesNumber)
+    setPagesLanguaje(budget[0].PagesLanguaje)
+   }
 
   useEffect(() => {
     setTotal(calcular())
   }, [checkweb, checkseo, checkads, pagesNumber, pagesLanguaje])
 
+  useEffect(() => {
+    localStorage.setItem('Information', JSON.stringify(budget))
+    console.log(budget)
+  }, [budget])
 
   function handleCheckweb(control) {
     if (control.checked) {
@@ -69,19 +68,9 @@ const Formulario = () => {
 
   function save() {
 
-    let allInformation = JSON.parse(localStorage.getItem('allInformation') || '[]')
-    let information = {
-      nombrePresupuesto: budgetName,
-      nombreCliente: costumerName,
-      Web: checkweb,
-      Seo: checkseo,
-      Ads: checkads,
-      PagesNumber: pagesNumber,
-      PagesLanguaje: pagesLanguaje,
-    }
-    allInformation.push(information)
-    localStorage.setItem('allInformation', JSON.stringify(allInformation))
+    setBudget([...budget, {budgetName, costumerName, checkweb, pagesNumber, pagesLanguaje, checkseo, checkads} ])
     reset()
+
   }
 
   function reset() {
@@ -90,15 +79,17 @@ const Formulario = () => {
     setCheckads(false)
     setPagesNumber(1)
     setPagesLanguaje(1)
+    setBudgetName("")
+    setCostumerName("")
   }
 
   return (
     <Fragment>
       <h4>¿Qué quieres hacer?</h4>
       <p className='mt-3' />Nombre del presupuesto:
-      <input className='ms-2' type='text' name="nombrePresupuesto" onChange={(e) => setBudgetName(e.target.value)}></input>
+      <input className='ms-2' type='text' name="NombrePresupuesto" onChange={(e) => setBudgetName(e.target.value)} value={budgetName}></input>
       <p className='mt-3' />Cliente:
-      <input className='ms-2' type='text' name="nombreCliente" onChange={(e) => setCostumerName(e.target.value)}></input>
+      <input className='ms-2' type='text' name="NombreCliente" onChange={(e) => setCostumerName(e.target.value)} value={costumerName}></input>
 
       <div className="form-check mt-3">
         <input className="form-check-input" type="checkbox" id="web" checked={checkweb} name="web" value={500} onChange={(e) => handleCheckweb(e.target)} />
