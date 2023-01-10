@@ -36,9 +36,6 @@ const Web = ({ pagesLanguaje, pagesNumber, setPagesNumber, setPagesLanguaje}) =>
                 <button className="btn btn-warning btn-sm fw-bold ms-3" onClick={decrementLanguajes}>-</button>
                 <Popup num={pagesLanguaje} text={'idiomas'}/>
             </div>
-        </div>)
-
-}
-
-
+        </div>
+    )}
 export default Web;

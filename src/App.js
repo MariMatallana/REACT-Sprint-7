@@ -9,23 +9,20 @@ import {
 } from "react-router-dom";
 
 function App() {
-
-
   return (
     <Router>
       <div className="container mt-5">
         <h3>Calcula tu presupesto</h3>
         <div className="btn-group mt-5"></div>
-        <Link to="/" className="btn btn-warning btn-sm" activeClassName="active">Inicio</Link>
+        <Link to="/" className="btn btn-warning btn-sm" >Inicio</Link>
         <Link to="/presupuesto" className="btn btn-warning btn-sm ms-2">Presupuesto</Link>
-        <hr />
+        <hr/>
         <Routes>
-          <Route path='/presupuesto' element={<Formulario/>}>
+          <Route path='/presupuesto' element={<Formulario />}>
           </Route>
-          <Route path='/' element={<Inicio/>}>
+          <Route path='/' element={<Inicio />}>
           </Route>
         </Routes>
-        
       </div>
     </Router>
   );
