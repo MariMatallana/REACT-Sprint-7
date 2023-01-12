@@ -3,7 +3,8 @@ import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Web from './Web'
 
-let data 
+let data
+let i = 0
 
 const Formulario = () => {
 
@@ -16,6 +17,9 @@ const Formulario = () => {
   const [pagesLanguaje, setPagesLanguaje] = useState(1)
   const [total, setTotal] = useState(0)
   const [budget, setBudget] = useState(JSON.parse(localStorage.getItem('Information')) ?? [])
+  const current = new Date()
+  const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`
+  const finalBudget = Object.values(budget)
 
   function printData() {
     setCheckweb(budget[0].Web)
@@ -23,7 +27,7 @@ const Formulario = () => {
     setCheckads(budget[0].Ads)
     setPagesNumber(budget[0].PagesNumber)
     setPagesLanguaje(budget[0].PagesLanguaje)
-   }
+  }
 
   useEffect(() => {
     setTotal(calcular())
@@ -66,9 +70,14 @@ const Formulario = () => {
     return precioWeb + precioSeo + precioAds
   }
 
+  let key 
   function save() {
 
-    setBudget([...budget, {budgetName, costumerName, checkweb, pagesNumber, pagesLanguaje, checkseo, checkads} ])
+    setBudget([...budget, { budgetName, costumerName, checkweb, pagesNumber, pagesLanguaje, checkseo, checkads, date, total }])
+    for (key in budget) {
+      console.log(key)
+      console.log(budget[key])
+    }
     reset()
 
   }
@@ -113,7 +122,9 @@ const Formulario = () => {
         </label>
       </div>
       <div className="mt-3">
-        Precio: {total} €
+        Precio: {total} € <br></br>
+        Nombre del cliente: {JSON.stringify(budget)}
+     
       </div>
       <button className="mt-3 btn btn-warning btn-sm" onClick={save}> Guardar </button>
     </Fragment>
