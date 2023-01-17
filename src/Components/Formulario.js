@@ -1,7 +1,8 @@
 import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import Web from './Web'
+import Web from './Web';
+import ListBudget from './ListBudget'
 
 let data
 let i = 0
@@ -17,9 +18,9 @@ const Formulario = () => {
   const [pagesLanguaje, setPagesLanguaje] = useState(1)
   const [total, setTotal] = useState(0)
   const [budget, setBudget] = useState(JSON.parse(localStorage.getItem('Information')) ?? [])
+  // const [presupuesto, setPresupuesto] = useState([])
   const current = new Date()
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`
-  const finalBudget = Object.values(budget)
 
   function printData() {
     setCheckweb(budget[0].Web)
@@ -35,8 +36,8 @@ const Formulario = () => {
 
   useEffect(() => {
     localStorage.setItem('Information', JSON.stringify(budget))
-    console.log(budget)
   }, [budget])
+
 
   function handleCheckweb(control) {
     if (control.checked) {
@@ -70,14 +71,12 @@ const Formulario = () => {
     return precioWeb + precioSeo + precioAds
   }
 
-  let key 
+  let i = 0
+  let key
   function save() {
 
     setBudget([...budget, { budgetName, costumerName, checkweb, pagesNumber, pagesLanguaje, checkseo, checkads, date, total }])
-    for (key in budget) {
-      console.log(key)
-      console.log(budget[key])
-    }
+
     reset()
 
   }
@@ -92,41 +91,49 @@ const Formulario = () => {
     setCostumerName("")
   }
 
+
   return (
     <Fragment>
-      <h4>¿Qué quieres hacer?</h4>
-      <p className='mt-3' />Nombre del presupuesto:
-      <input className='ms-2' type='text' name="NombrePresupuesto" onChange={(e) => setBudgetName(e.target.value)} value={budgetName}></input>
-      <p className='mt-3' />Cliente:
-      <input className='ms-2' type='text' name="NombreCliente" onChange={(e) => setCostumerName(e.target.value)} value={costumerName}></input>
+      <div className="row">
+        <div className="col-6">
+          <h4>¿Qué quieres hacer?</h4>
+          <p className='mt-3' />Nombre del presupuesto:
+          <input className='ms-2' type='text' name="NombrePresupuesto" onChange={(e) => setBudgetName(e.target.value)} value={budgetName}></input>
+          <p className='mt-3' />Cliente:
+          <input className='ms-2' type='text' name="NombreCliente" onChange={(e) => setCostumerName(e.target.value)} value={costumerName}></input>
 
-      <div className="form-check mt-3">
-        <input className="form-check-input" type="checkbox" id="web" checked={checkweb} name="web" value={500} onChange={(e) => handleCheckweb(e.target)} />
-        <label className="form-check-label">
-          Una página web (500€)
-        </label>
+          <div className="form-check mt-3">
+            <input className="form-check-input" type="checkbox" id="web" checked={checkweb} name="web" value={500} onChange={(e) => handleCheckweb(e.target)} />
+            <label className="form-check-label">
+              Una página web (500€)
+            </label>
+          </div>
+          <div>
+            {checkweb ? <Web pagesLanguaje={pagesLanguaje} pagesNumber={pagesNumber} setPagesNumber={setPagesNumber} setPagesLanguaje={setPagesLanguaje}> </Web> : null}
+          </div>
+          <div className="form-check mt-3">
+            <input className="form-check-input" type="checkbox" id="seo" checked={checkseo} value={300} name="seo" onChange={(e) => handleCheckseo(e.target)} />
+            <label className="form-check-label" >
+              Una consultoria SEO (300€)
+            </label>
+          </div>
+          <div className="form-check mt-3">
+            <input className="form-check-input" type="checkbox" id="googleAdds" checked={checkads} value={200} name="googleAdds" onChange={(e) => handleChecksads(e.target)} />
+            <label className="form-check-label" >
+              Una campaña de Google Ads (200€)
+            </label>
+          </div>
+          <div className="mt-3">
+            Precio: {total} € <br></br>
+          </div>
+          <button className="mt-3 btn btn-warning btn-sm" onClick={save}> Guardar </button>
+          <br></br>
+          <br></br>
+        </div>
+        <div className="col-md-6 col-sm-12" >
+         <ListBudget  budget={budget} ></ListBudget> 
+        </div>
       </div>
-      <div>
-        {checkweb ? <Web pagesLanguaje={pagesLanguaje} pagesNumber={pagesNumber} setPagesNumber={setPagesNumber} setPagesLanguaje={setPagesLanguaje}> </Web> : null}
-      </div>
-      <div className="form-check mt-3">
-        <input className="form-check-input" type="checkbox" id="seo" checked={checkseo} value={300} name="seo" onChange={(e) => handleCheckseo(e.target)} />
-        <label className="form-check-label" >
-          Una consultoria SEO (300€)
-        </label>
-      </div>
-      <div className="form-check mt-3">
-        <input className="form-check-input" type="checkbox" id="googleAdds" checked={checkads} value={200} name="googleAdds" onChange={(e) => handleChecksads(e.target)} />
-        <label className="form-check-label" >
-          Una campaña de Google Ads (200€)
-        </label>
-      </div>
-      <div className="mt-3">
-        Precio: {total} € <br></br>
-        Nombre del cliente: {JSON.stringify(budget)}
-     
-      </div>
-      <button className="mt-3 btn btn-warning btn-sm" onClick={save}> Guardar </button>
     </Fragment>
   );
 }

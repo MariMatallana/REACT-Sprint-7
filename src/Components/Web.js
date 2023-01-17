@@ -21,7 +21,7 @@ const Web = ({ pagesLanguaje, pagesNumber, setPagesNumber, setPagesLanguaje}) =>
     }
 
     return (
-        <div className="col-md-4">
+        <div className="col-md-8 col-sm-12">
             <div className="container mt-3 p-4 px-4 form-control border-dark border-3">
                 Número de páginas
                 <button className="btn btn-warning btn-sm fw-bold m-2 " onClick={incrementPages}> + </button>
